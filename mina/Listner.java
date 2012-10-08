@@ -17,7 +17,7 @@ import org.apache.mina.filter.logging.LoggingFilter;
 
 public class Listner {
 
-	private static int PORT;
+	private int PORT;
 	
 	public void setUpListner(int PORT) throws IOException {
 		this.PORT = PORT;
@@ -25,7 +25,7 @@ public class Listner {
 		acceptor.getFilterChain().addLast("logger", new LoggingFilter()	);
 		acceptor.getFilterChain().addLast("codec", new ProtocolCodecFilter(new TextLineCodecFactory(Charset.forName("UTF-8"))));
 		
-		acceptor.setHandler(  new MyMessageHandler() );
+		acceptor.setHandler(  new ReceivedMessageHandler() );
 
         acceptor.getSessionConfig().setReadBufferSize( 2048 );
         acceptor.getSessionConfig().setIdleTime( IdleStatus.BOTH_IDLE, 10 );
